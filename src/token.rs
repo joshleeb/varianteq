@@ -15,6 +15,7 @@ impl<'a> EnumVariant<'a> {
     }
 }
 
+// TODO(joshleeb): Refactor and clean up.
 impl<'a> ToTokens for EnumVariant<'a> {
     fn to_tokens(&self, tokens: &mut Tokens) {
         let enum_ident = self.enum_ident;
@@ -25,6 +26,7 @@ impl<'a> ToTokens for EnumVariant<'a> {
                     (#enum_ident::#variant_ident, #enum_ident::#variant_ident)
             }),
             Fields::Unnamed(ref field) => {
+                // TODO(joshleeb): Rename vec_tokens*.
                 let mut vec_tokens1 = vec![];
                 for _ in 0..field.unnamed.len() {
                     vec_tokens1.push(quote!(_));
@@ -42,7 +44,9 @@ impl<'a> ToTokens for EnumVariant<'a> {
                         )
                 })
             }
-            _ => {}
+            Fields::Named(_) => tokens.append_all(quote!{
+                    (#enum_ident::#variant_ident{..}, #enum_ident::#variant_ident{..})
+            }),
         }
     }
 }
