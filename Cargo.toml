@@ -4,3 +4,13 @@ version = "0.1.0"
 authors = ["Josh Leeb-du Toit <josh.leebdutoit@gmail.com>"]
 
 [dependencies]
+proc-macro2 = "0.3.1"
+quote = "0.5.1"
+syn = { version = "0.13.0", features = ["full"] }
+uuid = { version = "0.6", features = ["v4"] }
+
+[lib]
+proc-macro = true
+
+[[test]]
+name = "tests"
