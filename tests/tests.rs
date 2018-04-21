@@ -5,8 +5,12 @@ extern crate varianteq;
 enum Color {
     Red,
     Blue,
-    // Green(u32),
-    // Yellow({s: String, b: bool}),
+
+    Green(bool),
+    Orange(bool),
+
+    Yellow(u32, bool),
+    Cyan(u32, bool),
 }
 
 #[test]
@@ -18,5 +22,35 @@ fn eq_variant_no_fields() {
 #[test]
 fn ne_variant_no_fields() {
     assert_ne!(Color::Red, Color::Blue);
-    assert_ne!(Color::Blue, Color::Red);
+}
+
+#[test]
+fn eq_variant_unnamed_fields() {
+    assert_eq!(Color::Green(true), Color::Green(true));
+    assert_eq!(Color::Green(true), Color::Green(false));
+
+    assert_eq!(Color::Orange(true), Color::Orange(true));
+    assert_eq!(Color::Orange(true), Color::Orange(false));
+
+    assert_eq!(Color::Yellow(0, true), Color::Yellow(0, true));
+    assert_eq!(Color::Yellow(0, true), Color::Yellow(1, false));
+
+    assert_eq!(Color::Cyan(0, true), Color::Cyan(0, true));
+    assert_eq!(Color::Cyan(0, true), Color::Cyan(1, false));
+}
+
+#[test]
+fn ne_variant_unnamed_fields() {
+    assert_ne!(Color::Green(true), Color::Orange(true));
+    assert_ne!(Color::Green(true), Color::Orange(false));
+
+    assert_ne!(Color::Yellow(0, true), Color::Cyan(0, true));
+    assert_ne!(Color::Yellow(0, true), Color::Cyan(1, false));
+}
+
+#[test]
+fn ne_variant_mixed_fields() {
+    assert_ne!(Color::Red, Color::Green(true));
+    assert_ne!(Color::Blue, Color::Cyan(0, true));
+    assert_ne!(Color::Green(true), Color::Yellow(0, true));
 }

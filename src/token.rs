@@ -21,9 +21,27 @@ impl<'a> ToTokens for EnumVariant<'a> {
         let variant_ident = self.variant.ident;
 
         match self.variant.fields {
-            Fields::Unit => tokens.append_all(quote!(
+            Fields::Unit => tokens.append_all(quote!{
                     (#enum_ident::#variant_ident, #enum_ident::#variant_ident)
-                )),
+            }),
+            Fields::Unnamed(ref field) => {
+                let mut vec_tokens1 = vec![];
+                for _ in 0..field.unnamed.len() {
+                    vec_tokens1.push(quote!(_));
+                }
+                let vec_tokens2 = vec_tokens1.clone();
+
+                tokens.append_all(quote!{
+                        (
+                            #enum_ident::#variant_ident(
+                                #(#vec_tokens1),*
+                            ),
+                            #enum_ident::#variant_ident(
+                                #(#vec_tokens2),*
+                            )
+                        )
+                })
+            }
             _ => {}
         }
     }
