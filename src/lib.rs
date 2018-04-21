@@ -12,6 +12,7 @@ use quote::Tokens;
 use syn::{parse2, DeriveInput};
 
 mod varianteq;
+mod token;
 
 type DeriveFn = fn(DeriveInput) -> Result<Tokens, Diagnostic>;
 
