@@ -2,6 +2,8 @@
 name = "varianteq"
 version = "0.1.0"
 authors = ["Josh Leeb-du Toit <josh.leebdutoit@gmail.com>"]
+description = "Equality of Enum Variants Ignoring Fields"
+license = "MIT"
 
 [dependencies]
 proc-macro2 = "0.3.1"
