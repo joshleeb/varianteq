@@ -1,4 +1,5 @@
 use quote::{ToTokens, Tokens};
+use std::iter::repeat;
 use syn::{Fields, Ident, Variant};
 
 pub struct EnumVariant<'a> {
@@ -15,38 +16,19 @@ impl<'a> EnumVariant<'a> {
     }
 }
 
-// TODO(joshleeb): Refactor and clean up.
 impl<'a> ToTokens for EnumVariant<'a> {
     fn to_tokens(&self, tokens: &mut Tokens) {
         let enum_ident = self.enum_ident;
         let variant_ident = self.variant.ident;
 
-        match self.variant.fields {
-            Fields::Unit => tokens.append_all(quote!{
-                    (#enum_ident::#variant_ident, #enum_ident::#variant_ident)
-            }),
+        let match_pattern = match self.variant.fields {
+            Fields::Unit => quote!(#enum_ident::#variant_ident),
+            Fields::Named(_) => quote!(#enum_ident::#variant_ident{..}),
             Fields::Unnamed(ref field) => {
-                // TODO(joshleeb): Rename vec_tokens*.
-                let mut vec_tokens1 = vec![];
-                for _ in 0..field.unnamed.len() {
-                    vec_tokens1.push(quote!(_));
-                }
-                let vec_tokens2 = vec_tokens1.clone();
-
-                tokens.append_all(quote!{
-                        (
-                            #enum_ident::#variant_ident(
-                                #(#vec_tokens1),*
-                            ),
-                            #enum_ident::#variant_ident(
-                                #(#vec_tokens2),*
-                            )
-                        )
-                })
+                let underscores = repeat(quote!(_)).take(field.unnamed.len());
+                quote!(#enum_ident::#variant_ident(#(#underscores),*))
             }
-            Fields::Named(_) => tokens.append_all(quote!{
-                    (#enum_ident::#variant_ident{..}, #enum_ident::#variant_ident{..})
-            }),
-        }
+        };
+        tokens.append_all(quote!((#match_pattern, #match_pattern)));
     }
 }

@@ -11,8 +11,8 @@ use proc_macro::{Diagnostic, TokenStream};
 use quote::Tokens;
 use syn::{parse2, DeriveInput};
 
-mod varianteq;
 mod token;
+mod varianteq;
 
 type DeriveFn = fn(DeriveInput) -> Result<Tokens, Diagnostic>;
 
