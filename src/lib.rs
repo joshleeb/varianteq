@@ -1,11 +1,11 @@
 #![feature(proc_macro)]
 
-#[macro_use]
-extern crate quote;
-
 extern crate proc_macro;
 extern crate proc_macro2;
 extern crate syn;
+
+#[macro_use]
+extern crate quote;
 
 use proc_macro::{Diagnostic, TokenStream};
 use quote::Tokens;
