@@ -2,10 +2,13 @@
 name = "varianteq"
 version = "0.1.0"
 authors = ["Josh Leeb-du Toit <josh.leebdutoit@gmail.com>"]
+
 description = "Equality of Enum Variants Ignoring Fields"
-keywords = ["enum", "equality", "partialeq", "macro"]
+documentation = "https://docs.rs/crate/varianteq/"
+keywords = ["enum", "equality", "partialeq", "macro", "derive"]
 license = "MIT"
 readme = "README.md"
+repository = "https://github.com/joshleeb/varianteq"
 
 [dependencies]
 proc-macro2 = "0.3.6"
