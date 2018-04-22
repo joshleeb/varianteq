@@ -3,7 +3,7 @@ name = "varianteq"
 version = "0.1.1"
 authors = ["Josh Leeb-du Toit <josh.leebdutoit@gmail.com>"]
 
-description = "Equality of Enum Variants Ignoring Fields"
+description = "Derive the equality of enum variants ignoring fields"
 documentation = "https://docs.rs/crate/varianteq/"
 keywords = ["enum", "equality", "partialeq", "macro", "derive"]
 license = "MIT"
