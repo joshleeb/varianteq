@@ -32,3 +32,29 @@ impl<'a> ToTokens for EnumVariant<'a> {
         tokens.append_all(quote!((#match_pattern, #match_pattern)));
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn to_tokens_unit_field() {
+        let enum_ident = Ident::from("Enum");
+        let enum_variant =
+            EnumVariant::new(&enum_ident, new_variant(Ident::from("VarA"), Fields::Unit));
+
+        let mut tokens = Tokens::new();
+        enum_variant.to_tokens(&mut tokens);
+
+        assert_eq!(quote!((Enum::VarA, Enum::VarA)), tokens);
+    }
+
+    fn new_variant(ident: Ident, fields: Fields) -> Variant {
+        Variant {
+            attrs: vec![],
+            ident: ident,
+            fields: fields,
+            discriminant: None,
+        }
+    }
+}
