@@ -1,3 +1,59 @@
+//! This crate provides a macro to implement equality of enum variants.
+//!
+//! Two enum variants are equal if they are the same variant from the same enum, regardless of the
+//! values of the fields each variant contains.
+//!
+//! ```no_run
+//! # #[macro_use]
+//! # extern crate varianteq;
+//! #
+//! #[derive(VariantEq)]
+//! enum Enum {
+//!     Variant,
+//! }
+//! #
+//! # fn main() {}
+//! ```
+//!
+//! # Examples
+//!
+//! ```
+//! #[macro_use]
+//! extern crate varianteq;
+//!
+//! #[derive(Debug, VariantEq)]
+//! enum E {
+//!     A(i32),
+//!     B(i32),
+//!     C(u32, bool),
+//! }
+//!
+//! fn main() {
+//!     assert_eq!(E::A(1), E::A(2));
+//!     assert_ne!(E::A(1), E::B(1));
+//!     assert_ne!(E::A(1), E::C(1, false));
+//! }
+//! ```
+//!
+//! # Errors
+//!
+//! The `VariantEq` macro only applies to enums and will cauase a compilation error if used on
+//! structs.
+//!
+//! ```compile_fail
+//! # #[macro_use]
+//! # extern crate varianteq;
+//! #
+//! #[derive(VariantEq)]
+//! struct S;
+//! #
+//! # fn main() {}
+//! ```
+//!
+//! ```text
+//! error: #[derive(VariantEq)] is only defined for enums
+//! ```
+
 #![feature(proc_macro)]
 
 extern crate proc_macro;

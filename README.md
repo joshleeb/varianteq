@@ -1,5 +1,47 @@
 # VariantEq
 
-Derive the equality of eunm variants ignoring fields.
+This crate provides a macro to implement equality of enum variants.
 
-There are times when it is useful to define the equality of an enum with the variants, and ignore any fields that the variants might have.
+Two enum variants are equal if they are the same variant from the same enum, regardless of the
+values of the fields each variant contains.
+
+```rust
+#[derive(VariantEq)]
+enum Enum {
+    Variant,
+}
+```
+
+## Examples
+
+```rust
+#[macro_use]
+extern crate varianteq;
+
+#[derive(Debug, VariantEq)]
+enum E {
+    A(i32),
+    B(i32),
+    C(u32, bool),
+}
+
+fn main() {
+    assert_eq!(E::A(1), E::A(2));
+    assert_ne!(E::A(1), E::B(1));
+    assert_ne!(E::A(1), E::C(1, false));
+}
+```
+
+## Errors
+
+The `VariantEq` macro only applies to enums and will cauase a compilation error if used on
+structs.
+
+```rust
+#[derive(VariantEq)]
+struct S;
+```
+
+```text
+error: #[derive(VariantEq)] is only defined for enums
+```
