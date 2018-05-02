@@ -1,5 +1,8 @@
 # VariantEq
 
+[![Latest Version](https://img.shields.io/badge/crates.io-v0.2.0-orange.svg)](https://crates.io/crates/varianteq)
+[![Rust Documentation](https://img.shields.io/badge/api-rustdoc-blue.svg)](https://docs.rs/varianteq)
+
 This crate provides a macro to implement equality of enum variants.
 
 Two enum variants are equal if they are the same variant from the same enum, regardless of the
