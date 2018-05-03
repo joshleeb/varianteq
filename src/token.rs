@@ -4,11 +4,11 @@ use syn::{Fields, Ident, Variant};
 
 pub struct EnumVariant<'a> {
     enum_ident: &'a Ident,
-    variant: Variant,
+    variant: &'a Variant,
 }
 
 impl<'a> EnumVariant<'a> {
-    pub fn new(enum_ident: &'a Ident, variant: Variant) -> Self {
+    pub fn new(enum_ident: &'a Ident, variant: &'a Variant) -> Self {
         EnumVariant {
             enum_ident,
             variant,
@@ -40,8 +40,9 @@ mod tests {
     #[test]
     fn to_tokens_unit_field() {
         let enum_ident = Ident::from("Enum");
-        let enum_variant =
-            EnumVariant::new(&enum_ident, new_variant(Ident::from("VarA"), Fields::Unit));
+
+        let variant = new_variant(Ident::from("VarA"), Fields::Unit);
+        let enum_variant = EnumVariant::new(&enum_ident, &variant);
 
         let mut tokens = Tokens::new();
         enum_variant.to_tokens(&mut tokens);
