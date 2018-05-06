@@ -1,6 +1,5 @@
 use quote::{ToTokens, Tokens};
-use std::iter::repeat;
-use syn::{Fields, Ident, Variant};
+use syn::{Ident, Variant};
 
 pub struct EnumVariant<'a> {
     enum_ident: &'a Ident,
@@ -21,21 +20,16 @@ impl<'a> ToTokens for EnumVariant<'a> {
         let enum_ident = self.enum_ident;
         let variant_ident = self.variant.ident;
 
-        let match_pattern = match self.variant.fields {
-            Fields::Unit => quote!(#enum_ident::#variant_ident),
-            Fields::Named(_) => quote!(#enum_ident::#variant_ident{..}),
-            Fields::Unnamed(ref field) => {
-                let underscores = repeat(quote!(_)).take(field.unnamed.len());
-                quote!(#enum_ident::#variant_ident(#(#underscores),*))
-            }
-        };
-        tokens.append_all(quote!((#match_pattern, #match_pattern)));
+        tokens.append_all(quote! {
+            (#enum_ident::#variant_ident{..}, #enum_ident::#variant_ident{..})
+        });
     }
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
+    use syn::Fields;
 
     #[test]
     fn to_tokens_unit_field() {
@@ -47,7 +41,7 @@ mod tests {
         let mut tokens = Tokens::new();
         enum_variant.to_tokens(&mut tokens);
 
-        assert_eq!(quote!((Enum::VarA, Enum::VarA)), tokens);
+        assert_eq!(quote!((Enum::VarA { .. }, Enum::VarA { .. })), tokens);
     }
 
     fn new_variant(ident: Ident, fields: Fields) -> Variant {
