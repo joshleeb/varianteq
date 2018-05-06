@@ -9,7 +9,7 @@ pub fn derive(item: DeriveInput) -> Result<Tokens, Diagnostic> {
     Ok(quote! {
         impl PartialEq for #ident {
             fn eq(&self, other: &#ident) -> bool {
-                std::mem::discriminant(self) == std::mem::discriminant(other)
+                ::std::mem::discriminant(self) == ::std::mem::discriminant(other)
             }
         }
         impl Eq for #ident {}
