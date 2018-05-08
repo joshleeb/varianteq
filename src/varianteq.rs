@@ -10,7 +10,7 @@ pub fn derive(item: DeriveInput) -> Result<Tokens, Diagnostic> {
 
     Ok(quote! {
         impl #impl_generics PartialEq for #ident #ty_generics #where_clause {
-            fn eq(&self, other: &#ident) -> bool {
+            fn eq(&self, other: &#ident#ty_generics) -> bool {
                 ::std::mem::discriminant(self) == ::std::mem::discriminant(other)
             }
         }
