@@ -1,6 +1,8 @@
 #[macro_use]
 extern crate varianteq;
 
+mod generic;
+
 #[derive(Debug, VariantEq)]
 enum Color {
     Red,
