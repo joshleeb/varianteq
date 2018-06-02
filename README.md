@@ -2,6 +2,7 @@
 
 [![Latest Version](https://img.shields.io/badge/crates.io-v0.4.0-orange.svg)](https://crates.io/crates/varianteq)
 [![Rust Documentation](https://img.shields.io/badge/api-rustdoc-blue.svg)](https://docs.rs/varianteq)
+[![Travis Build](https://travis-ci.org/joshleeb/varianteq/builds/387013159)](https://travis-ci.org/joshleeb/varianteq)
 
 This crate provides a macro to implement equality of enum variants.
 
