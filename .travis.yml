@@ -1,0 +1,22 @@
+language: rust
+sudo: false
+dist: xenial
+
+cache:
+  cargo: true
+  apt: true
+
+matrix:
+  include:
+    - rust: stable
+    - rust: beta
+    - rust: nightly
+
+# Add clippy
+before_script:
+  - export PATH=$PATH:~/.cargo/bin
+
+script:
+  - |
+    cargo clean
+    cargo test -- --nocapture
