@@ -54,7 +54,7 @@
 //! error: #[derive(VariantEq)] is only defined for enums
 //! ```
 
-#![feature(proc_macro)]
+#![feature(proc_macro_diagnostic)]
 
 extern crate proc_macro;
 extern crate proc_macro2;
