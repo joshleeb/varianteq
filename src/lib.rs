@@ -57,19 +57,13 @@
 #![feature(proc_macro_diagnostic)]
 
 extern crate proc_macro;
-extern crate proc_macro2;
-extern crate syn;
-
-#[macro_use]
-extern crate quote;
 
 use proc_macro::{Diagnostic, TokenStream};
-use quote::Tokens;
 use syn::{parse2, DeriveInput};
 
 mod varianteq;
 
-type DeriveFn = fn(DeriveInput) -> Result<Tokens, Diagnostic>;
+type DeriveFn = fn(DeriveInput) -> Result<proc_macro2::TokenStream, Diagnostic>;
 
 #[proc_macro_derive(VariantEq)]
 pub fn varianteq_derive(tokens: TokenStream) -> TokenStream {

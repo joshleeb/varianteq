@@ -1,8 +1,9 @@
 use proc_macro::{Diagnostic, Level};
-use quote::Tokens;
+use proc_macro2::TokenStream;
+use quote::quote;
 use syn::{Data, DeriveInput};
 
-pub fn derive(item: DeriveInput) -> Result<Tokens, Diagnostic> {
+pub fn derive(item: DeriveInput) -> Result<TokenStream, Diagnostic> {
     check_enum_data(item.data)?;
 
     let ident = item.ident;

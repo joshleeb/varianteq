@@ -1,7 +1,8 @@
 [package]
 name = "varianteq"
 version = "0.4.1"
-authors = ["Josh Leeb-du Toit <josh.leebdutoit@gmail.com>"]
+authors = ["Josh Leeb-du Toit <mail@joshleeb.com>"]
+edition = "2018"
 
 description = "Derive the equality of enum variants ignoring fields"
 documentation = "https://docs.rs/crate/varianteq/"
@@ -16,9 +17,9 @@ autotests = false
 travis-ci = { repository = "joshleeb/varianteq", branch = "master" }
 
 [dependencies]
-proc-macro2 = "0.3.6"
-quote = "0.5.2"
-syn = "0.13.1"
+proc-macro2 = "0.4.8"
+quote = "0.6.3"
+syn = "0.14.4"
 
 [lib]
 proc-macro = true
