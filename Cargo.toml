@@ -1,6 +1,6 @@
 [package]
 name = "varianteq"
-version = "0.4.1"
+version = "0.5.0"
 authors = ["Josh Leeb-du Toit <mail@joshleeb.com>"]
 edition = "2018"
 
